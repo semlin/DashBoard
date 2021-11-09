@@ -33,18 +33,38 @@ function changeColor(z) {
   }
 }
 
-
+//Fonction qui concatène une variable compteur pour ensuite sortir l'id d'une case
 function updateDiv(){
   while (i != divAupdt){
     i++
     let z = 'di' + i
       changeColor(z)
   }
+}
 
+//Fonction qui va reload la page pour refresh les cellules
+//Call en async car il doit être non bloquant et en dehors de la boucle principal
+//L'echelle temps est en ms
+function resolveAfter2Seconds() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('resolved');
+    }, 60000);
+  });
+}
 
+async function asyncCall() {
+  console.log('calling');
+  const result = await resolveAfter2Seconds();
+  console.log(result);
+  // expected output: resolved car la fct reslve after le renvois
+  // Passer ensuite le rechargement de page
+  location.reload();
 }
 
 
 
 
+
 updateDiv()
+asyncCall();
